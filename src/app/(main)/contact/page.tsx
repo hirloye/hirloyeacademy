@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Mail, Phone, MapPin, Globe } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
+import { ContactMap } from "@/components/ContactMap";
 
 export default function ContactPage() {
   return (
@@ -72,16 +73,8 @@ export default function ContactPage() {
             </div>
 
             {/* Map */}
-            <div className="w-full h-64 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 mt-4">
-              <iframe
-                src="https://maps.google.com/maps?q=NMK%20Street,%20Ayanavaram,%20Chennai%20600023&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
+            <div className="w-full h-80 rounded-2xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-800 mt-4 relative">
+              <ContactMap />
             </div>
 
           </div>

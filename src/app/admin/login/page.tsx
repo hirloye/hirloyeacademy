@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Shield } from "lucide-react";
+import { PasswordInput } from "@/components/ui/password-input";
 
 export default function AdminLogin() {
   const [error, setError] = useState<string>("");
@@ -57,8 +58,7 @@ export default function AdminLogin() {
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
-              <input
-                type="password"
+              <PasswordInput
                 name="password"
                 required
                 className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-[#4A90E2]"

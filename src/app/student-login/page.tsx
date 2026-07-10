@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { loginStudent } from "@/app/actions/studentAuth";
 import { GraduationCap } from "lucide-react";
@@ -63,9 +64,8 @@ export default function StudentLoginPage() {
               <div className="flex items-center justify-between">
                 <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
               </div>
-              <Input
+              <PasswordInput
                 name="password"
-                type="password"
                 required
                 className="bg-white/50 dark:bg-gray-900/50"
                 placeholder="••••••••"

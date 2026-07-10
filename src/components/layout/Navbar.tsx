@@ -41,12 +41,14 @@ export function Navbar() {
           </span>
         </Link>
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <AnimatedGenerateButton 
-            className="hidden md:inline-block h-10"
-            labelIdle="Explore Course"
-            labelActive="Loading..."
-            onClick={() => router.push('/course')}
-          />
+          <div className="hidden md:block">
+            <AnimatedGenerateButton 
+              className="h-10"
+              labelIdle="Explore Course"
+              labelActive="Loading..."
+              onClick={() => router.push('/course')}
+            />
+          </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
             type="button"
@@ -109,6 +111,14 @@ export function Navbar() {
                 )}
               </li>
             ))}
+            <li className="pt-4 mt-2 border-t border-gray-200 dark:border-gray-700 md:hidden flex justify-center w-full">
+              <AnimatedGenerateButton 
+                className="w-full h-10"
+                labelIdle="Explore Course"
+                labelActive="Loading..."
+                onClick={() => { setIsOpen(false); router.push('/course'); }}
+              />
+            </li>
           </ul>
         </div>
       </div>

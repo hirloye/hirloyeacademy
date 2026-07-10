@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Users, Lock } from "lucide-react";
 import { loginStaff } from "@/app/actions/staff";
 import Link from "next/link";
@@ -67,10 +68,9 @@ export default function StaffLoginPage() {
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <Input 
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 z-10" />
+                <PasswordInput 
                   name="password"
-                  type="password"
                   required
                   placeholder="••••" 
                   className="pl-10 h-12 bg-white/50 dark:bg-black/50"

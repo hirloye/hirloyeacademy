@@ -6,6 +6,7 @@ import { logoutAdmin } from "@/app/actions/auth";
 import { ManageJobs } from "@/components/admin/ManageJobs";
 import { ManageInternships } from "@/components/admin/ManageInternships";
 import { ManageEnrollments } from "@/components/admin/ManageEnrollments";
+import { MobileSidebar } from "@/components/MobileSidebar";
 import Link from "next/link";
 
 type Props = {
@@ -15,6 +16,35 @@ type Props = {
 export default async function AdminDashboard(props: Props) {
   const searchParams = await props.searchParams;
   const tab = typeof searchParams.tab === "string" ? searchParams.tab : "overview";
+
+  const navLinks = (
+    <nav className="p-4 space-y-2">
+      <Link href="?tab=overview" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'overview' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+        <BarChart3 className="w-5 h-5" />
+        <span>Overview</span>
+      </Link>
+      <Link href="?tab=leads" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'leads' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+        <Users className="w-5 h-5" />
+        <span>Applications / Leads</span>
+      </Link>
+      <Link href="?tab=enquiries" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'enquiries' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+        <FileText className="w-5 h-5" />
+        <span>Enquiries</span>
+      </Link>
+      <Link href="?tab=jobs" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'jobs' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+        <Briefcase className="w-5 h-5" />
+        <span>Manage Jobs</span>
+      </Link>
+      <Link href="?tab=interns" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'interns' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+        <GraduationCap className="w-5 h-5" />
+        <span>Manage Internships</span>
+      </Link>
+      <Link href="?tab=enrollments" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'enrollments' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+        <BookOpen className="w-5 h-5" />
+        <span>Course Enrollments</span>
+      </Link>
+    </nav>
+  );
 
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
@@ -42,10 +72,15 @@ export default async function AdminDashboard(props: Props) {
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Top Navbar for Admin */}
       <header className="w-full bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 py-4 px-6 flex items-center justify-between shadow-sm sticky top-0 z-10">
-        <h1 className="text-xl font-bold flex items-center">
-          <Settings className="w-6 h-6 mr-2 text-[#4A90E2]" />
-          Admin Dashboard
-        </h1>
+        <div className="flex items-center space-x-3">
+          <MobileSidebar>
+            {navLinks}
+          </MobileSidebar>
+          <h1 className="text-xl font-bold flex items-center">
+            <Settings className="w-6 h-6 mr-2 text-[#4A90E2] hidden md:block" />
+            Admin Dashboard
+          </h1>
+        </div>
         <div className="flex items-center space-x-4">
           <form action={logoutAdmin}>
             <button type="submit" className="p-2 text-gray-500 hover:text-red-600 transition-colors flex items-center" title="Logout">
@@ -61,36 +96,11 @@ export default async function AdminDashboard(props: Props) {
       <div className="flex flex-1">
         {/* Sidebar */}
         <aside className="w-64 bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 hidden md:block min-h-[calc(100vh-73px)]">
-          <nav className="p-4 space-y-2">
-            <Link href="?tab=overview" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'overview' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
-              <BarChart3 className="w-5 h-5" />
-              <span>Overview</span>
-            </Link>
-            <Link href="?tab=leads" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'leads' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
-              <Users className="w-5 h-5" />
-              <span>Applications / Leads</span>
-            </Link>
-            <Link href="?tab=enquiries" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'enquiries' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
-              <FileText className="w-5 h-5" />
-              <span>Enquiries</span>
-            </Link>
-            <Link href="?tab=jobs" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'jobs' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
-              <Briefcase className="w-5 h-5" />
-              <span>Manage Jobs</span>
-            </Link>
-            <Link href="?tab=interns" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'interns' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
-              <GraduationCap className="w-5 h-5" />
-              <span>Manage Internships</span>
-            </Link>
-            <Link href="?tab=enrollments" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'enrollments' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
-              <BookOpen className="w-5 h-5" />
-              <span>Course Enrollments</span>
-            </Link>
-          </nav>
+          {navLinks}
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-6 md:p-8">
+        <main className="flex-1 p-4 md:p-8 min-w-0">
           <div className="mb-8 flex items-center justify-between">
              <h2 className="text-2xl font-bold">Welcome back, Admin!</h2>
           </div>
