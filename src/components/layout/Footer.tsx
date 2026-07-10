@@ -132,7 +132,7 @@ export function Footer() {
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Learn</h2>
               <ul className="text-gray-500 dark:text-gray-400 font-medium">
                 <li className="mb-4">
-                  <Link href="/course" className="hover:underline hover:text-[#4A90E2]">Digital Marketing</Link>
+                  <Link href="/ai-powered-digital-marketing-course-in-ayanavaram" className="hover:underline hover:text-[#4A90E2]">Digital Marketing</Link>
                 </li>
                 <li>
                   <Link href="/internships" className="hover:underline hover:text-[#4A90E2]">Internships</Link>

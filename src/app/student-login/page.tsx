@@ -78,7 +78,7 @@ export default function StudentLoginPage() {
         </CardContent>
         <CardFooter className="flex justify-center border-t border-gray-100 dark:border-gray-800 pt-6">
           <p className="text-sm text-gray-500">
-            Don't have an account? <Link href="/course" className="text-[#4A90E2] hover:underline font-medium">Enroll now</Link>
+            Don't have an account? <Link href="/ai-powered-digital-marketing-course-in-ayanavaram" className="text-[#4A90E2] hover:underline font-medium">Enroll now</Link>
           </p>
         </CardFooter>
       </Card>

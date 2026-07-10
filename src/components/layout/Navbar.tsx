@@ -21,7 +21,7 @@ const navLinks: NavLink[] = [
       { name: "Internship", href: "/internships" }
     ]
   },
-  { name: "Digital Marketing Course", href: "/course" },
+  { name: "Digital Marketing Course", href: "/ai-powered-digital-marketing-course-in-ayanavaram" },
   { name: "Blog", href: "/blog" },
   { name: "Contact Us", href: "/contact" },
 ];
@@ -46,7 +46,7 @@ export function Navbar() {
               className="h-10"
               labelIdle="Explore Course"
               labelActive="Loading..."
-              onClick={() => router.push('/course')}
+              onClick={() => router.push('/ai-powered-digital-marketing-course-in-ayanavaram')}
             />
           </div>
           <button
@@ -116,7 +116,7 @@ export function Navbar() {
                 className="w-full h-10"
                 labelIdle="Explore Course"
                 labelActive="Loading..."
-                onClick={() => { setIsOpen(false); router.push('/course'); }}
+                onClick={() => { setIsOpen(false); router.push('/ai-powered-digital-marketing-course-in-ayanavaram'); }}
               />
             </li>
           </ul>

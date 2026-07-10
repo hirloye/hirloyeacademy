@@ -52,14 +52,14 @@ export default function Home() {
           <div className="flex flex-col items-center space-y-8">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold max-w-4xl text-zinc-900 dark:text-white drop-shadow-xl">
               Build Your Career.<br />
-              <span className="text-blue-600 dark:text-[#8AD4F6]">Learn Digital Marketing.</span><br />
+              <span className="text-blue-600 dark:text-[#8AD4F6]">The Best Digital Marketing Academy in Ayanavaram.</span><br />
               Grow With Hirloye.
             </h1>
             <p className="mx-auto max-w-[700px] text-zinc-700 dark:text-white/90 md:text-xl drop-shadow-md">
-              Learn industry-focused digital marketing skills from the experts, join our internship programs, and apply for top job openings.
+              Learn industry-focused digital marketing skills from the experts. Join our AI-powered digital marketing course in Ayanavaram, participate in our internship programs, and apply for top job openings.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
-              <Link href="/course" className={buttonVariants({ size: "lg" }) + " h-14 px-8 text-lg flex items-center justify-center"}>
+              <Link href="/ai-powered-digital-marketing-course-in-ayanavaram" className={buttonVariants({ size: "lg" }) + " h-14 px-8 text-lg flex items-center justify-center"}>
                 Explore Course
               </Link>
               <LiquidGlassButton href="/careers" className="h-14 px-8 text-lg">
@@ -127,14 +127,14 @@ export default function Home() {
         <div className="container px-4 md:px-6 mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Accelerate Your Journey?</h2>
           <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-2xl mx-auto text-lg">
-            Enroll in our comprehensive Digital Marketing Course to upgrade your skills, and let Hirloye guide you to your perfect job.
+            Enroll in our advanced digital marketing course in Ayanavaram to upgrade your skills, and let Hirloye guide you to your perfect job.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <AnimatedGenerateButton 
               className="h-14 px-8 text-lg"
               labelIdle="Enroll Now"
               labelActive="Loading..."
-              href="/course"
+              href="/ai-powered-digital-marketing-course-in-ayanavaram"
             />
             <LiquidGlassButton href="/careers" className="h-14 px-8 text-lg">
               View Job Openings

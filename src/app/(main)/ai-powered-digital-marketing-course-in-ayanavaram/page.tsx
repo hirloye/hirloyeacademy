@@ -1,9 +1,16 @@
+import { Metadata } from "next";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle2, Star, Clock, Calendar, Users, Briefcase, BookOpen } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { CourseEnrollmentForm } from "@/components/course/CourseEnrollmentForm";
 import LiquidGlassButton from "@/components/ui/liquid-glass-button";
+
+export const metadata: Metadata = {
+  title: "AI-Powered Digital Marketing Course in Ayanavaram | Hirloye",
+  description: "Looking for an advanced digital marketing course in Ayanavaram? Join Hirloye, the premier digital marketing academy in Ayanavaram, offering AI-powered training and live projects.",
+  keywords: "AI-powered digital marketing course in Ayanavaram, digital marketing academy in Ayanavaram, Advanced digital marketing course in Ayanavaram",
+};
 
 const highlights = [
   "3 Months Intensive Training",
@@ -99,10 +106,11 @@ export default function CoursePage() {
               <span className="text-sm font-medium tracking-wide">Premium Course</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
-              AI Integrated Digital Marketing Master Course
+              AI-Powered Digital Marketing Course in Ayanavaram
             </h1>
             <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed font-light">
-              The AI Integrated Digital Marketing Master Course is a comprehensive 3months (12-week) training program designed to prepare students for careers in modern digital marketing. </p>
+              Join the leading digital marketing academy in Ayanavaram. Our advanced digital marketing course in Ayanavaram is a comprehensive 3-month (12-week) training program designed to prepare students for careers in modern digital marketing.
+            </p>
             <div className="flex flex-wrap gap-4">
               <CourseEnrollmentForm />
               <LiquidGlassButton href="/student-login" className="h-14 px-8 text-lg">
