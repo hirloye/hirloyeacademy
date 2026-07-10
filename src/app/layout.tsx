@@ -25,6 +25,8 @@ export const metadata: Metadata = {
   keywords: "AI-powered digital marketing course in Ayanavaram, digital marketing academy in Ayanavaram, Advanced digital marketing course in Ayanavaram",
 };
 
+import Script from "next/script";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -36,6 +38,18 @@ export default function RootLayout({
       className={`${interFont.variable} ${polySansFont.variable} font-sans h-full antialiased`}
     >
       <body className="min-h-full">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-EL9SVHCTQW"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-EL9SVHCTQW');
+          `}
+        </Script>
         {children}
       </body>
     </html>
