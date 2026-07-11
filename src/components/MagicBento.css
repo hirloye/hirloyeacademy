@@ -32,8 +32,9 @@
   max-width: 100%;
   padding: 1.5em;
   border-radius: 20px;
-  border: 1px solid var(--border-color);
-  background: var(--background-dark);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(12px);
   font-weight: 300;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -169,16 +170,21 @@
   }
 }
 
+@keyframes magicBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 /* Border glow effect */
 .magic-bento-card--border-glow::after {
   content: '';
   position: absolute;
   inset: 0;
-  padding: 6px;
-  background: radial-gradient(var(--glow-radius) circle at var(--glow-x) var(--glow-y),
-      rgba(132, 0, 255, calc(var(--glow-intensity) * 0.8)) 0%,
-      rgba(132, 0, 255, calc(var(--glow-intensity) * 0.4)) 30%,
-      transparent 60%);
+  padding: 2px;
+  background: linear-gradient(135deg, #000000, #222222, #000000, #111111);
+  background-size: 200% 200%;
+  animation: magicBorder 4s linear infinite;
   border-radius: inherit;
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,

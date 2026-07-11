@@ -24,15 +24,15 @@ import {
 import { Testimonials } from "@/components/Testimonials";
 
 const services = [
-  { icon: <Monitor className="w-8 h-8 mb-4 text-[#4A90E2]" />, title: "Website Development", description: "Custom, responsive, and high-performance websites." },
-  { icon: <Search className="w-8 h-8 mb-4 text-[#7B68EE]" />, title: "SEO Services", description: "Rank higher on search engines and get organic traffic." },
-  { icon: <Share2 className="w-8 h-8 mb-4 text-[#4A90E2]" />, title: "Social Media Marketing", description: "Engaging campaigns to build your brand presence." },
-  { icon: <Megaphone className="w-8 h-8 mb-4 text-[#7B68EE]" />, title: "Meta Ads", description: "Targeted advertising on Facebook and Instagram." },
-  { icon: <MousePointerClick className="w-8 h-8 mb-4 text-[#4A90E2]" />, title: "Google Ads", description: "High-converting search and display ad campaigns." },
-  { icon: <MapPin className="w-8 h-8 mb-4 text-[#7B68EE]" />, title: "Google Business Profile", description: "Optimize your local presence to attract nearby clients." },
-  { icon: <Video className="w-8 h-8 mb-4 text-[#4A90E2]" />, title: "Video Production", description: "High-quality video content that tells your story." },
-  { icon: <PenTool className="w-8 h-8 mb-4 text-[#7B68EE]" />, title: "Content Creation", description: "Compelling copy and visuals that drive engagement." },
-  { icon: <Palette className="w-8 h-8 mb-4 text-[#4A90E2]" />, title: "Branding & Logo Design", description: "Memorable identities that stand out in the market." },
+  { icon: <Monitor className="w-8 h-8 mb-4 text-white" />, title: "Website Development", description: "Custom, responsive, and high-performance websites." },
+  { icon: <Search className="w-8 h-8 mb-4 text-white" />, title: "SEO Services", description: "Rank higher on search engines and get organic traffic." },
+  { icon: <Share2 className="w-8 h-8 mb-4 text-white" />, title: "Social Media Marketing", description: "Engaging campaigns to build your brand presence." },
+  { icon: <Megaphone className="w-8 h-8 mb-4 text-white" />, title: "Meta Ads", description: "Targeted advertising on Facebook and Instagram." },
+  { icon: <MousePointerClick className="w-8 h-8 mb-4 text-white" />, title: "Google Ads", description: "High-converting search and display ad campaigns." },
+  { icon: <MapPin className="w-8 h-8 mb-4 text-white" />, title: "Google Business Profile", description: "Optimize your local presence to attract nearby clients." },
+  { icon: <Video className="w-8 h-8 mb-4 text-white" />, title: "Video Production", description: "High-quality video content that tells your story." },
+  { icon: <PenTool className="w-8 h-8 mb-4 text-white" />, title: "Content Creation", description: "Compelling copy and visuals that drive engagement." },
+  { icon: <Palette className="w-8 h-8 mb-4 text-white" />, title: "Branding & Logo Design", description: "Memorable identities that stand out in the market." },
 ];
 
 const stats = [
@@ -52,11 +52,11 @@ export default function Home() {
           <div className="flex flex-col items-center space-y-8">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold max-w-4xl text-zinc-900 dark:text-white drop-shadow-xl">
               Build Your Career.<br />
-              <span className="text-blue-600 dark:text-[#8AD4F6]">The Best Digital Marketing Academy in Ayanavaram.</span><br />
+              <span className="text-blue-600 dark:text-[#8AD4F6]">Learn Digital Marketing</span><br />
               Grow With Hirloye.
             </h1>
             <p className="mx-auto max-w-[700px] text-zinc-700 dark:text-white/90 md:text-xl drop-shadow-md">
-              Learn industry-focused digital marketing skills from the experts. Join our AI-powered digital marketing course in Ayanavaram, participate in our internship programs, and apply for top job openings.
+              Learn industry-focused digital marketing skills from the experts. Join our AI-powered digital marketing course, participate in our internship programs, and apply for top job openings.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
               <Link href="/ai-powered-digital-marketing-course-in-ayanavaram" className={buttonVariants({ size: "lg" }) + " h-14 px-8 text-lg flex items-center justify-center"}>
@@ -80,9 +80,9 @@ export default function Home() {
             </p>
           </div>
           <div className="w-full max-w-6xl mx-auto">
-            <MagicBento 
-              cards={services.map(s => ({
-                color: '#ffffff',
+            <MagicBento
+              cards={services.map((s, index) => ({
+                color: index % 2 === 0 ? 'rgba(74, 144, 226, 0.25)' : 'rgba(123, 104, 238, 0.25)',
                 title: s.title,
                 description: s.description,
                 icon: s.icon
@@ -90,7 +90,7 @@ export default function Home() {
               textAutoHide={false}
               enableStars={true}
               enableSpotlight={true}
-              enableBorderGlow={true}
+              enableBorderGlow={false}
               enableTilt={true}
               enableMagnetism={true}
               clickEffect={true}
@@ -130,7 +130,7 @@ export default function Home() {
             Enroll in our advanced digital marketing course in Ayanavaram to upgrade your skills, and let Hirloye guide you to your perfect job.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <AnimatedGenerateButton 
+            <AnimatedGenerateButton
               className="h-14 px-8 text-lg"
               labelIdle="Enroll Now"
               labelActive="Loading..."

@@ -9,7 +9,6 @@ const roles = [
   { title: "Website Developer", image: "/employee_profile/Website_Developer.png", color: "from-emerald-500 to-teal-500", shadow: "shadow-emerald-500/50" },
   { title: "Digital Marketing Executive", image: "/employee_profile/Digital_Marketing_Executive.jpeg", color: "from-amber-500 to-orange-500", shadow: "shadow-amber-500/50" },
   { title: "SEO Analyst", image: "/employee_profile/SEO_Analyst.jpeg", color: "from-indigo-500 to-purple-500", shadow: "shadow-indigo-500/50" },
-  { title: "Video Editor", image: "/employee_profile/VideoEditor.jpeg", color: "from-purple-500 to-indigo-500", shadow: "shadow-purple-500/50" },
   { title: "Relationship Manager", image: "/employee_profile/Relationship_Manager.jpeg", color: "from-rose-500 to-pink-500", shadow: "shadow-rose-500/50" },
 ];
 
