@@ -76,7 +76,7 @@ export function Footer() {
   return (
     <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 relative overflow-hidden">
       {/* Animated Digital Marketing Background Icons */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.15] dark:opacity-[0.08]">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-40 dark:opacity-20">
         <div className="absolute top-10 left-[5%] md:left-[10%] animate-bounce text-[#4A90E2]">
           <Megaphone className="w-16 h-16 md:w-24 md:h-24" />
         </div>

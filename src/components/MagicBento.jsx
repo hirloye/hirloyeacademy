@@ -465,8 +465,8 @@ const MagicBento = ({
       )}
 
       <BentoCardGrid gridRef={gridRef}>
-        {[...(cards || []), ...(cards || [])].map((card, index) => {
-          const baseClassName = `magic-bento-card ${textAutoHide ? 'magic-bento-card--text-autohide' : ''} ${enableBorderGlow ? 'magic-bento-card--border-glow' : ''}`;
+        {(cards || []).map((card, index) => {
+          const baseClassName = `magic-bento-card ${textAutoHide ? 'magic-bento-card--text-autohide' : ''} ${enableBorderGlow ? 'magic-bento-card--border-glow' : ''} ${card.className || ''}`;
           const cardProps = {
             className: baseClassName,
             style: {
@@ -487,13 +487,36 @@ const MagicBento = ({
                 clickEffect={clickEffect}
                 enableMagnetism={enableMagnetism}
               >
-                <div className="magic-bento-card__header">
-                  {card.label && <div className="magic-bento-card__label">{card.label}</div>}
-                  {card.icon && <div className="magic-bento-card__icon">{card.icon}</div>}
-                </div>
-                <div className="magic-bento-card__content">
-                  <h2 className="magic-bento-card__title">{card.title}</h2>
-                  <p className="magic-bento-card__description">{card.description}</p>
+                {card.bgImage && (
+                  <div className="absolute inset-0 z-0 rounded-[18px] overflow-hidden">
+                    <div className="absolute inset-0 bg-black/10 hover:bg-black/40 transition-colors duration-500 z-10" />
+                    <div
+                      className="absolute inset-0 z-0 transition-transform duration-700 hover:scale-105"
+                      style={{
+                        backgroundImage: `url(${card.bgImage})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center'
+                      }}
+                    />
+                  </div>
+                )}
+                <div className={`relative z-10 flex flex-col h-full ${card.bgImage ? 'text-white drop-shadow-md' : ''}`}>
+                  {card.customContent ? card.customContent : (
+                    <>
+                      <div className="magic-bento-card__header">
+                        {card.label && <div className="magic-bento-card__label">{card.label}</div>}
+                        {card.icon && (
+                          <div className="magic-bento-card__icon w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg mb-4 shrink-0">
+                            {card.icon}
+                          </div>
+                        )}
+                      </div>
+                      <div className="magic-bento-card__content mt-auto">
+                        <h2 className="magic-bento-card__title">{card.title}</h2>
+                        <p className="magic-bento-card__description">{card.description}</p>
+                      </div>
+                    </>
+                  )}
                 </div>
               </ParticleCard>
             );
@@ -611,13 +634,36 @@ const MagicBento = ({
                 el.addEventListener('click', handleClick);
               }}
             >
-              <div className="magic-bento-card__header">
-                {card.label && <div className="magic-bento-card__label">{card.label}</div>}
-                {card.icon && <div className="magic-bento-card__icon">{card.icon}</div>}
-              </div>
-              <div className="magic-bento-card__content">
-                <h2 className="magic-bento-card__title">{card.title}</h2>
-                <p className="magic-bento-card__description">{card.description}</p>
+              {card.bgImage && (
+                <div className="absolute inset-0 z-0 rounded-[18px] overflow-hidden">
+                  <div className="absolute inset-0 bg-black/60 hover:bg-black/40 transition-colors duration-500 z-10" />
+                  <div
+                    className="absolute inset-0 z-0 transition-transform duration-700 hover:scale-105"
+                    style={{
+                      backgroundImage: `url(${card.bgImage})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center'
+                    }}
+                  />
+                </div>
+              )}
+              <div className={`relative z-10 flex flex-col h-full ${card.bgImage ? 'text-white drop-shadow-md' : ''}`}>
+                {card.customContent ? card.customContent : (
+                  <>
+                    <div className="magic-bento-card__header">
+                      {card.label && <div className="magic-bento-card__label">{card.label}</div>}
+                      {card.icon && (
+                        <div className="magic-bento-card__icon w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg mb-4 shrink-0">
+                          {card.icon}
+                        </div>
+                      )}
+                    </div>
+                    <div className="magic-bento-card__content mt-auto">
+                      <h2 className="magic-bento-card__title">{card.title}</h2>
+                      <p className="magic-bento-card__description">{card.description}</p>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           );

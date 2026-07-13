@@ -14,8 +14,24 @@ export function GlobalScrollAnimation() {
     const intersectionObserver = new IntersectionObserver((entries, obs) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          obs.unobserve(entry.target);
+          const el = entry.target as any;
+          
+          // Cancel the hiding animation
+          if (el._hideAnimation) {
+            el._hideAnimation.cancel();
+          }
+
+          // Play the reveal animation using WAAPI
+          el.animate([
+            { opacity: 0, transform: 'translateY(30px)' },
+            { opacity: 1, transform: 'translateY(0)' }
+          ], {
+            duration: 800,
+            easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+            fill: 'forwards'
+          });
+
+          obs.unobserve(el);
         }
       });
     }, observerOptions);
@@ -23,16 +39,23 @@ export function GlobalScrollAnimation() {
     const targetSelector = "h1, h2, h3, h4, h5, p, img";
 
     const applyAnimationToElement = (el: Element) => {
+      const htmlEl = el as any;
       // Don't apply to specific components where it might break layout or look bad
       if (
-        !el.classList.contains("reveal-on-scroll") &&
+        !htmlEl._hasScrollAnimation &&
         !el.closest(".magic-bento-card") &&
         !el.closest(".animate-marquee-left") &&
         !el.closest(".animate-marquee-right") &&
         !el.closest("nav") &&
         !el.closest("footer")
       ) {
-        el.classList.add("reveal-on-scroll");
+        htmlEl._hasScrollAnimation = true;
+        
+        // Hide element immediately using WAAPI (bypasses React attribute checks)
+        htmlEl._hideAnimation = el.animate([
+          { opacity: 0, transform: 'translateY(30px)' }
+        ], { duration: 0, fill: 'forwards' });
+        
         intersectionObserver.observe(el);
       }
     };
@@ -47,22 +70,24 @@ export function GlobalScrollAnimation() {
 
     // Setup mutation observer to catch dynamically added elements (like from Suspense, client-side renders, or page navigations)
     const mutationObserver = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          if (node.nodeType === 1) { // ELEMENT_NODE
-            const element = node as Element;
-            
-            // Check if the added node matches our selectors
-            if (element.matches && element.matches(targetSelector)) {
-              applyAnimationToElement(element);
+      requestAnimationFrame(() => {
+        mutations.forEach((mutation) => {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === 1) { // ELEMENT_NODE
+              const element = node as Element;
+              
+              // Check if the added node matches our selectors
+              if (element.matches && element.matches(targetSelector)) {
+                applyAnimationToElement(element);
+              }
+              
+              // Also check all descendants of the added node
+              if (element.querySelectorAll) {
+                const descendants = element.querySelectorAll(targetSelector);
+                descendants.forEach(applyAnimationToElement);
+              }
             }
-            
-            // Also check all descendants of the added node
-            if (element.querySelectorAll) {
-              const descendants = element.querySelectorAll(targetSelector);
-              descendants.forEach(applyAnimationToElement);
-            }
-          }
+          });
         });
       });
     });

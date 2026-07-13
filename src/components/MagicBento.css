@@ -12,12 +12,45 @@
 
 .card-grid {
   display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(280px, auto);
   gap: 1em;
   padding: 0.75em;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
+}
+
+@media (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bento-col-span-2 {
+  grid-column: span 2;
+}
+
+.bento-row-span-2 {
+  grid-row: span 2;
+}
+
+@media (max-width: 1024px) {
+  .bento-row-span-2 {
+    grid-row: span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .bento-col-span-2 {
+    grid-column: span 1;
+  }
 }
 
 .magic-bento-card {
@@ -26,18 +59,24 @@
   justify-content: flex-start;
   gap: 1.25em;
   position: relative;
-  aspect-ratio: 1 / 1;
-  height: auto;
+  min-height: 280px;
+  width: 100%;
   width: 100%;
   max-width: 100%;
   padding: 1.5em;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  /* border: 2px solid transparent; */
+  background-image:
+    linear-gradient(#ffffff, #ffffff),
+    linear-gradient(135deg, #a855f7, #06b6d4, #a855f7, #06b6d4);
+  background-origin: padding-box, border-box;
+  background-clip: padding-box, border-box;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(12px);
   font-weight: 300;
   overflow: hidden;
   transition: all 0.3s ease;
+  color: #09090b;
 
   --glow-x: 50%;
   --glow-y: 50%;
@@ -54,7 +93,6 @@
 .magic-bento-card__content {
   display: flex;
   position: relative;
-  color: #09090b;
 }
 
 .magic-bento-card__header {
@@ -114,94 +152,26 @@
   line-clamp: var(--clamp-desc);
 }
 
-@media (max-width: 599px) {
-  .card-grid {
-    grid-template-columns: 1fr;
-    width: 100%;
-    margin: 0 auto;
-    padding: 0.5em;
-  }
 
-  .magic-bento-card {
-    width: 100%;
-  }
-}
-
-@media (min-width: 600px) {
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .card-grid {
-    display: grid;
-    grid-template-rows: 250px;
-    grid-auto-columns: 250px;
-    grid-auto-flow: column;
-    width: max-content;
-    animation: scrollX 20s linear infinite;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    gap: 1.5rem;
-  }
-
-  .magic-bento-card {
-    width: 250px !important;
-    height: 250px !important;
-    min-width: 250px;
-    min-height: 250px;
-    max-width: 250px;
-    max-height: 250px;
-  }
-
-  .card-grid:hover {
-    animation-play-state: paused;
-  }
-}
-
-@keyframes scrollX {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    /* Since we duplicate the array, scroll exactly half the gap-included width */
-    transform: translateX(calc(-50% - 0.5em));
-  }
-}
 
 @keyframes magicBorder {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-/* Border glow effect */
-.magic-bento-card--border-glow::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  padding: 2px;
-  background: linear-gradient(135deg, #000000, #222222, #000000, #111111);
-  background-size: 200% 200%;
+/* Border glow effect animation (optional) */
+.magic-bento-card--border-glow {
+  background-size: 100% 100%, 200% 200%;
   animation: magicBorder 4s linear infinite;
-  border-radius: inherit;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  pointer-events: none;
-  opacity: 1;
-  transition: opacity 0.3s ease;
-  z-index: 1;
-}
-
-.magic-bento-card--border-glow:hover::after {
-  opacity: 1;
 }
 
 .magic-bento-card--border-glow:hover {

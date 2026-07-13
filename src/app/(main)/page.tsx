@@ -3,7 +3,8 @@ import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import MagicBento from "@/components/MagicBento";
 import { EmployeeRoadmap } from "@/components/roadmap/EmployeeRoadmap";
-import { AuroraBackground } from "@/components/ui/aurora-background";
+import Hyperspeed from "@/components/Hyperspeed";
+import { HeroAnimation } from "@/components/HeroAnimation";
 import AnimatedGenerateButton from "@/components/ui/animated-generate-button-shadcn-tailwind";
 import LiquidGlassButton from "@/components/ui/liquid-glass-button";
 import {
@@ -24,15 +25,15 @@ import {
 import { Testimonials } from "@/components/Testimonials";
 
 const services = [
-  { icon: <Monitor className="w-8 h-8 mb-4 text-white" />, title: "Website Development", description: "Custom, responsive, and high-performance websites." },
-  { icon: <Search className="w-8 h-8 mb-4 text-white" />, title: "SEO Services", description: "Rank higher on search engines and get organic traffic." },
-  { icon: <Share2 className="w-8 h-8 mb-4 text-white" />, title: "Social Media Marketing", description: "Engaging campaigns to build your brand presence." },
-  { icon: <Megaphone className="w-8 h-8 mb-4 text-white" />, title: "Meta Ads", description: "Targeted advertising on Facebook and Instagram." },
-  { icon: <MousePointerClick className="w-8 h-8 mb-4 text-white" />, title: "Google Ads", description: "High-converting search and display ad campaigns." },
-  { icon: <MapPin className="w-8 h-8 mb-4 text-white" />, title: "Google Business Profile", description: "Optimize your local presence to attract nearby clients." },
-  { icon: <Video className="w-8 h-8 mb-4 text-white" />, title: "Video Production", description: "High-quality video content that tells your story." },
-  { icon: <PenTool className="w-8 h-8 mb-4 text-white" />, title: "Content Creation", description: "Compelling copy and visuals that drive engagement." },
-  { icon: <Palette className="w-8 h-8 mb-4 text-white" />, title: "Branding & Logo Design", description: "Memorable identities that stand out in the market." },
+  { icon: <Monitor className="w-6 h-6 text-white" />, title: "Website Development", description: "Custom, responsive, and high-performance websites." },
+  { icon: <Search className="w-6 h-6 text-white" />, title: "SEO Services", description: "Rank higher on search engines and get organic traffic." },
+  { icon: <Share2 className="w-6 h-6 text-white" />, title: "Social Media Marketing", description: "Engaging campaigns to build your brand presence." },
+  { icon: <Megaphone className="w-6 h-6 text-white" />, title: "Meta Ads", description: "Targeted advertising on Facebook and Instagram." },
+  { icon: <MousePointerClick className="w-6 h-6 text-white" />, title: "Google Ads", description: "High-converting search and display ad campaigns." },
+  { icon: <MapPin className="w-6 h-6 text-white" />, title: "Google Business Profile", description: "Optimize your local presence to attract nearby clients." },
+  { icon: <Video className="w-6 h-6 text-white" />, title: "Video Production", description: "High-quality video content that tells your story." },
+  { icon: <PenTool className="w-6 h-6 text-white" />, title: "Content Creation", description: "Compelling copy and visuals that drive engagement." },
+  { icon: <Palette className="w-6 h-6 text-white" />, title: "Branding & Logo Design", description: "Memorable identities that stand out in the market." },
 ];
 
 const stats = [
@@ -46,29 +47,40 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center">
       {/* Hero Section */}
-      <AuroraBackground className="-mt-[72px] pt-[120px] pb-12 lg:pt-[136px] lg:pb-16 min-h-[70vh]">
+      <section className="relative w-full bg-white overflow-hidden -mt-[72px] pt-[120px] pb-12 lg:pt-[136px] lg:pb-16 min-h-[100vh] md:min-h-[90vh] flex items-center justify-center">
+        {/* Hyperspeed Background */}
+        <div className="absolute inset-0 z-0">
+          <Hyperspeed />
+        </div>
 
-        <div className="container px-4 md:px-6 text-center">
-          <div className="flex flex-col items-center space-y-8">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold max-w-4xl text-zinc-900 dark:text-white drop-shadow-xl">
-              Build Your Career.<br />
-              <span className="text-blue-600 dark:text-[#8AD4F6]">Learn Digital Marketing</span><br />
-              Grow With Hirloye.
-            </h1>
-            <p className="mx-auto max-w-[700px] text-zinc-700 dark:text-white/90 md:text-xl drop-shadow-md">
-              Learn industry-focused digital marketing skills from the experts. Join our AI-powered digital marketing course, participate in our internship programs, and apply for top job openings.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
-              <Link href="/ai-powered-digital-marketing-course-in-ayanavaram" className={buttonVariants({ size: "lg" }) + " h-14 px-8 text-lg flex items-center justify-center"}>
-                Explore Course
-              </Link>
-              <LiquidGlassButton href="/careers" className="h-14 px-8 text-lg">
-                Apply for Jobs
-              </LiquidGlassButton>
+        <div className="container px-4 md:px-6 relative z-10 pointer-events-none">
+          <div className="grid lg:grid-cols-10 gap-12 items-center">
+            {/* Left Column: Content */}
+            <div className="flex flex-col items-start space-y-8 text-left lg:col-span-6">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold max-w-4xl text-zinc-900 drop-shadow-xl">
+                Build Your Career.<br />
+                <span className="text-blue-600">Learn Digital Marketing</span><br />
+              </h1>
+              <p className="max-w-[700px] text-zinc-700 md:text-xl drop-shadow-md">
+                Join our AI-powered digital marketing course, participate in our internship programs, and apply for top job openings.
+              </p>
+              <div className="flex flex-row gap-4 mt-4 pointer-events-auto">
+                <Link href="/ai-powered-digital-marketing-course-in-ayanavaram" className={buttonVariants({ size: "lg" }) + " h-14 px-8 text-lg flex items-center justify-center"}>
+                  Explore Course
+                </Link>
+                <LiquidGlassButton href="/careers" className="h-14 px-8 text-lg">
+                  Apply for Jobs
+                </LiquidGlassButton>
+              </div>
+            </div>
+
+            {/* Right Column: Animation */}
+            <div className="hidden lg:flex justify-center items-center pointer-events-auto lg:col-span-4">
+              <HeroAnimation />
             </div>
           </div>
         </div>
-      </AuroraBackground>
+      </section>
 
       {/* Services Section */}
       <section className="w-full py-20 bg-gray-50 dark:bg-gray-900/50">
@@ -81,12 +93,53 @@ export default function Home() {
           </div>
           <div className="w-full max-w-6xl mx-auto">
             <MagicBento
-              cards={services.map((s, index) => ({
-                color: index % 2 === 0 ? 'rgba(74, 144, 226, 0.25)' : 'rgba(123, 104, 238, 0.25)',
-                title: s.title,
-                description: s.description,
-                icon: s.icon
-              }))}
+              cards={[
+                ...services.slice(0, 7).map((s, index) => {
+                  let className = '';
+                  let bgImage = undefined;
+                  if (index === 0) className = 'bento-col-span-2';
+                  if (index === 3) className = 'bento-row-span-2';
+                  if (index === 4) className = 'bento-col-span-2';
+
+                  const images = [
+                    '/services/web.webp',
+                    '/services/seo.webp',
+                    '/services/smm.webp',
+                    '/services/meta.webp',
+                    '/services/google%20ads.webp',
+                    '/services/gmb.webp',
+                    '/services/videoshoot.webp',
+                    '/services/explore.webp'
+
+                  ];
+
+                  bgImage = images[index];
+
+                  return {
+                    color: '#ffffff',
+                    title: s.title,
+                    description: s.description,
+                    icon: s.icon,
+                    className,
+                    bgImage
+                  };
+                }),
+                {
+                  color: '#ffffff',
+                  bgImage: '/services/explore.webp',
+                  className: 'bento-col-span-2 flex items-center justify-center',
+                  customContent: (
+                    <div className="flex flex-col sm:flex-row items-center justify-center h-full gap-4 w-full p-4 relative z-10">
+                      <a href="https://www.hirloye.com/best-digital-marketing-company-in-ayanavaram-services" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-semibold transition-all shadow-lg hover:shadow-xl w-full sm:w-auto text-center">
+                        Explore Services
+                      </a>
+                      <a href="https://wa.me/917904713677" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-full font-semibold transition-all shadow-lg hover:shadow-xl w-full sm:w-auto text-center">
+                        Chat with Us
+                      </a>
+                    </div>
+                  )
+                }
+              ]}
               textAutoHide={false}
               enableStars={true}
               enableSpotlight={true}
@@ -127,17 +180,15 @@ export default function Home() {
         <div className="container px-4 md:px-6 mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Accelerate Your Journey?</h2>
           <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-2xl mx-auto text-lg">
-            Enroll in our advanced digital marketing course in Ayanavaram to upgrade your skills, and let Hirloye guide you to your perfect job.
+            Enroll in our advanced digital marketing course to upgrade your skills, and let Hirloye guide you to your perfect job.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <AnimatedGenerateButton
-              className="h-14 px-8 text-lg"
-              labelIdle="Enroll Now"
-              labelActive="Loading..."
-              href="/ai-powered-digital-marketing-course-in-ayanavaram"
-            />
-            <LiquidGlassButton href="/careers" className="h-14 px-8 text-lg">
-              View Job Openings
+          <div className="flex flex-row gap-3 sm:gap-4 justify-center items-center w-full max-w-[360px] sm:max-w-[420px] mx-auto">
+            <Link href="/ai-powered-digital-marketing-course-in-ayanavaram" className={buttonVariants({ size: "lg" }) + " flex-1 w-full h-14 px-2 sm:px-8 text-sm sm:text-lg flex items-center justify-center text-center"}>
+              Enroll Now
+            </Link>
+
+            <LiquidGlassButton href="/careers" className="flex-1 w-full h-14 px-2 sm:px-8 text-sm sm:text-lg text-center flex items-center justify-center">
+              Job Openings
             </LiquidGlassButton>
           </div>
         </div>
