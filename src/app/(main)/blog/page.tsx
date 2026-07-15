@@ -5,6 +5,13 @@ import Image from "next/image";
 export const metadata = {
   title: "Blog | Hirloye Careers",
   description: "Read the latest updates and articles from our team.",
+  alternates: {
+    canonical: "/blog",
+    languages: {
+      "en": "/blog",
+      "x-default": "/blog",
+    },
+  },
 };
 
 export default async function BlogListingPage(props: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {

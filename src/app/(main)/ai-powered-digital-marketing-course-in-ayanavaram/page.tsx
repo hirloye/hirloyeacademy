@@ -10,6 +10,13 @@ export const metadata: Metadata = {
   title: "AI-Powered Digital Marketing Course in Ayanavaram | Hirloye",
   description: "Looking for an advanced digital marketing course in Ayanavaram? Join Hirloye, the premier digital marketing academy in Ayanavaram, offering AI-powered training and live projects.",
   keywords: "AI-powered digital marketing course in Ayanavaram, digital marketing academy in Ayanavaram, Advanced digital marketing course in Ayanavaram",
+  alternates: {
+    canonical: "/ai-powered-digital-marketing-course-in-ayanavaram",
+    languages: {
+      "en": "/ai-powered-digital-marketing-course-in-ayanavaram",
+      "x-default": "/ai-powered-digital-marketing-course-in-ayanavaram",
+    },
+  },
 };
 
 const highlights = [

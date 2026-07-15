@@ -1,7 +1,19 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Monitor, Search, Share2, Megaphone, MousePointerClick, MapPin, Video, PenTool, Palette, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Services | Hirloye",
+  description: "Explore the digital marketing services offered by Hirloye.",
+  alternates: {
+    canonical: "/services",
+    languages: {
+      "en": "/services",
+      "x-default": "/services",
+    },
+  },
+};
 const services = [
   { icon: <Monitor className="w-10 h-10 mb-4 text-[#4A90E2]" />, title: "Website Development", description: "Custom, responsive, and high-performance websites tailored to your brand." },
   { icon: <Search className="w-10 h-10 mb-4 text-[#7B68EE]" />, title: "SEO Services", description: "Rank higher on search engines and attract organic, high-quality traffic." },

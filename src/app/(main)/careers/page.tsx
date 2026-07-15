@@ -3,6 +3,19 @@ import { Briefcase, MapPin, Clock, Building, Search } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import { ApplyModal } from "@/components/ApplyModal";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Careers | Hirloye",
+  description: "Explore career opportunities at Hirloye.",
+  alternates: {
+    canonical: "/careers",
+    languages: {
+      "en": "/careers",
+      "x-default": "/careers",
+    },
+  },
+};
 
 export default async function CareersPage() {
   const cookieStore = await cookies();

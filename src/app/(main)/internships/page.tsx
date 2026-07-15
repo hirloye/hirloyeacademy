@@ -3,6 +3,19 @@ import { GraduationCap, Code, Rocket, Megaphone } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import { ApplyModal } from "@/components/ApplyModal";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Internships | Hirloye",
+  description: "Explore internship opportunities at Hirloye.",
+  alternates: {
+    canonical: "/internships",
+    languages: {
+      "en": "/internships",
+      "x-default": "/internships",
+    },
+  },
+};
 
 export default async function InternshipsPage() {
   const cookieStore = await cookies();

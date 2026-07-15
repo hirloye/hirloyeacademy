@@ -3,6 +3,20 @@ import { Mail, Phone, MapPin, Globe } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 import { ContactMap } from "@/components/ContactMap";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us | Hirloye",
+  description: "Get in touch with Hirloye.",
+  alternates: {
+    canonical: "/contact",
+    languages: {
+      "en": "/contact",
+      "x-default": "/contact",
+    },
+  },
+};
+
 export default function ContactPage() {
   return (
     <div className="flex flex-col min-h-screen pb-8">

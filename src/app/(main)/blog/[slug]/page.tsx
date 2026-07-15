@@ -3,10 +3,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-export const metadata = {
-  title: "Blog Post | Hirloye Careers",
-  description: "Read our latest blog post.",
-};
+export async function generateMetadata({ params }: { params: Params }) {
+  const { slug } = await params;
+  return {
+    title: "Blog Post | Hirloye Careers",
+    description: "Read our latest blog post.",
+    alternates: {
+      canonical: `/blog/${slug}`,
+      languages: {
+        "en": `/blog/${slug}`,
+        "x-default": `/blog/${slug}`,
+      },
+    },
+  };
+}
 
 type Params = Promise<{ slug: string }>;
 

@@ -1,4 +1,15 @@
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en": "/",
+      "x-default": "/",
+    },
+  },
+};
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import MagicBento from "@/components/MagicBento";
