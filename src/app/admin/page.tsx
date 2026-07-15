@@ -19,27 +19,27 @@ export default async function AdminDashboard(props: Props) {
 
   const navLinks = (
     <nav className="p-4 space-y-2">
-      <Link href="?tab=overview" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'overview' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+      <Link href="/admin?tab=overview" scroll={false} className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'overview' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
         <BarChart3 className="w-5 h-5" />
         <span>Overview</span>
       </Link>
-      <Link href="?tab=leads" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'leads' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+      <Link href="/admin?tab=leads" scroll={false} className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'leads' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
         <Users className="w-5 h-5" />
         <span>Applications / Leads</span>
       </Link>
-      <Link href="?tab=enquiries" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'enquiries' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+      <Link href="/admin?tab=enquiries" scroll={false} className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'enquiries' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
         <FileText className="w-5 h-5" />
         <span>Enquiries</span>
       </Link>
-      <Link href="?tab=jobs" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'jobs' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+      <Link href="/admin?tab=jobs" scroll={false} className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'jobs' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
         <Briefcase className="w-5 h-5" />
         <span>Manage Jobs</span>
       </Link>
-      <Link href="?tab=interns" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'interns' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+      <Link href="/admin?tab=interns" scroll={false} className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'interns' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
         <GraduationCap className="w-5 h-5" />
         <span>Manage Internships</span>
       </Link>
-      <Link href="?tab=enrollments" className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'enrollments' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+      <Link href="/admin?tab=enrollments" scroll={false} className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-colors ${tab === 'enrollments' ? 'bg-[#4A90E2]/10 text-[#4A90E2]' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
         <BookOpen className="w-5 h-5" />
         <span>Course Enrollments</span>
       </Link>

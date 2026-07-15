@@ -60,7 +60,7 @@ export function EmployeeRoadmap() {
 
   return (
     <section className="py-24 relative overflow-hidden bg-gray-50/50 dark:bg-[#030014]/50">
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full mx-auto px-2 sm:px-6 lg:px-8 relative z-10">
 
         <div className="text-center mb-20 roadmap-node opacity-0 translate-y-[30px] transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)]">
           <h2 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-500 dark:from-purple-400 dark:to-blue-400 mb-4">
@@ -115,7 +115,7 @@ export function EmployeeRoadmap() {
             style={{ height: `${lineProgress}%` }}
           ></div>
 
-          <div className="grid grid-cols-1 md:grid-cols-7 gap-y-8 md:gap-y-0 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-y-8 md:gap-y-0 relative z-10">
             {roles.map((role, index) => {
               const isEven = index % 2 === 0;
 

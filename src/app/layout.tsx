@@ -26,6 +26,7 @@ export const metadata: Metadata = {
 };
 
 import Script from "next/script";
+import { Toaster } from "sonner";
 
 export default function RootLayout({
   children,
@@ -51,6 +52,7 @@ export default function RootLayout({
           `}
         </Script>
         {children}
+        <Toaster position="top-center" richColors closeButton />
       </body>
     </html>
   );

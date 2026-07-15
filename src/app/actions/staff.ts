@@ -283,3 +283,68 @@ export async function updateStudentAttendance(enrollmentId: string, percentage: 
   revalidatePath("/dashboard");
   return { success: true };
 }
+
+export async function fetchStudentRecords(batchNo: string) {
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
+
+  const { data, error } = await supabase
+    .from("student_records")
+    .select(`
+      *,
+      course_enrollments (first_name, last_name)
+    `)
+    .eq("batch_id", batchNo)
+    .order("created_at", { ascending: false });
+
+  if (error) return { error: error.message, records: null };
+  return { records: data };
+}
+
+export async function postStudentRecord(formData: FormData) {
+  const batchNo = formData.get("batch_no") as string;
+  const enrollmentId = formData.get("enrollment_id") as string; // Optional if broadcast
+  const title = formData.get("title") as string;
+  const message = formData.get("message") as string;
+  const senderType = "staff"; // This is staff action
+
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
+
+  // If no enrollmentId is provided, we broadcast to all students in the batch
+  if (!enrollmentId || enrollmentId === "all") {
+    const { data: students, error: fetchError } = await supabase
+      .from("course_enrollments")
+      .select("id")
+      .ilike("course_name", `%Batch ${batchNo}%`);
+
+    if (fetchError || !students || students.length === 0) {
+      return { error: "No students found in this batch." };
+    }
+
+    const recordsToInsert = students.map(student => ({
+      enrollment_id: student.id,
+      batch_id: batchNo,
+      title,
+      message,
+      sender_type: senderType
+    }));
+
+    const { error } = await supabase.from("student_records").insert(recordsToInsert);
+    if (error) return { error: error.message };
+  } else {
+    // Send to specific student
+    const { error } = await supabase.from("student_records").insert({
+      enrollment_id: enrollmentId,
+      batch_id: batchNo,
+      title,
+      message,
+      sender_type: senderType
+    });
+    if (error) return { error: error.message };
+  }
+
+  revalidatePath("/staff/dashboard");
+  return { success: true, message: "Record posted successfully." };
+}
+

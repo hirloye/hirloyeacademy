@@ -8,14 +8,27 @@ import {
   assignAssignmentToBatch, 
   assignAssessmentToBatch,
   fetchStudentsByBatch,
-  updateStudentAttendance,
-  fetchBatchOverview
+  fetchBatchOverview,
+  fetchStudentRecords,
+  postStudentRecord,
+  updateStudentAttendance
 } from "@/app/actions/staff";
-import { BookOpen, Presentation, FileText, CheckCircle2, Users, Loader2, Calendar as CalendarIcon, Clock, Plus, Trash2 } from "lucide-react";
+import { BookOpen, Presentation, FileText, CheckCircle2, Users, Loader2, Calendar as CalendarIcon, Clock, Plus, Trash2, MessageSquare } from "lucide-react";
+import { toast } from "sonner";
 
-export function BatchManager() {
+interface BatchManagerProps {
+  initialTab?: string;
+}
+
+export function BatchManager({ initialTab = "overview" }: BatchManagerProps) {
   const [selectedBatch, setSelectedBatch] = useState<string>("1");
-  const [activeTab, setActiveTab] = useState<"class" | "assignment" | "assessment" | "students">("class");
+  const [activeTab, setActiveTab] = useState<string>(initialTab);
+
+  useEffect(() => {
+    if (initialTab !== activeTab) {
+      setActiveTab(initialTab);
+    }
+  }, [initialTab]);
   const [assessmentType, setAssessmentType] = useState<string>("quiz");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
@@ -45,12 +58,27 @@ export function BatchManager() {
   const [overview, setOverview] = useState<{ classes: any[], assignments: any[], assessments: any[] }>({ classes: [], assignments: [], assessments: [] });
   const [fetchingOverview, setFetchingOverview] = useState(false);
 
+  // State for student records
+  const [records, setRecords] = useState<any[]>([]);
+  const [fetchingRecords, setFetchingRecords] = useState(false);
+
   useEffect(() => {
     loadOverview();
     if (activeTab === "students") {
       loadStudents();
+    } else if (activeTab === "records") {
+      loadRecords();
     }
   }, [activeTab, selectedBatch]);
+
+  const loadRecords = async () => {
+    setFetchingRecords(true);
+    const res = await fetchStudentRecords(selectedBatch);
+    if (res.records) {
+      setRecords(res.records);
+    }
+    setFetchingRecords(false);
+  };
 
   const loadOverview = async () => {
     setFetchingOverview(true);
@@ -103,32 +131,39 @@ export function BatchManager() {
     
     if (res?.error) {
       setMessage({ type: 'error', text: res.error });
+      toast.error(res.error);
     } else if (res?.success) {
       setMessage({ type: 'success', text: res.message });
+      toast.success(res.message);
       (e.target as HTMLFormElement).reset();
-      // Reload overview after successful assignment
-      loadOverview();
+      
+      if (action === postStudentRecord) {
+        loadRecords();
+      } else {
+        loadOverview();
+      }
     }
     
     setLoading(false);
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      
-      <div className="md:col-span-2 space-y-8">
+    <div className="space-y-8">
+      {/* Main Content Area */}
+      <div className="w-full space-y-8">
+        
         {/* Batch Selector */}
-        <div>
-          <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">Select Batch</h3>
+        <div className="bg-gray-50 dark:bg-gray-900/50 p-6 rounded-2xl border border-gray-100 dark:border-gray-800">
+          <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">Select Batch</h3>
           <div className="flex flex-wrap gap-3">
             {[1, 2, 3, 4, 5].map((batch) => (
               <button
                 key={batch}
                 onClick={() => { setSelectedBatch(batch.toString()); setMessage(null); }}
-                className={`px-6 py-2.5 rounded-xl font-medium transition-all ${
+                className={`px-6 py-2 rounded-lg font-bold text-sm transition-all ${
                   selectedBatch === batch.toString()
-                    ? "bg-[#7B68EE] text-white shadow-md transform scale-105"
-                    : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                    ? "bg-[#7B68EE] text-white shadow-sm"
+                    : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
                 }`}
               >
                 Batch {batch}
@@ -137,51 +172,7 @@ export function BatchManager() {
           </div>
         </div>
 
-        <div className="border-t border-gray-100 dark:border-gray-800 pt-8">
-          <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
-            Manage Content for <span className="text-[#7B68EE]">Batch {selectedBatch}</span>
-          </h3>
-
-          {/* Tabs */}
-          <div className="flex border-b border-gray-200 dark:border-gray-800 mb-6 flex-wrap gap-y-2">
-            <button
-              onClick={() => setActiveTab("class")}
-              className={`flex items-center pb-3 px-4 font-medium text-sm transition-colors relative ${
-                activeTab === "class" ? "text-[#7B68EE]" : "text-gray-500 hover:text-gray-900 dark:hover:text-white"
-              }`}
-            >
-              <Presentation className="w-4 h-4 mr-2" /> Schedule Class
-              {activeTab === "class" && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-[#7B68EE] rounded-t-full" />}
-            </button>
-            <button
-              onClick={() => setActiveTab("assignment")}
-              className={`flex items-center pb-3 px-4 font-medium text-sm transition-colors relative ${
-                activeTab === "assignment" ? "text-[#7B68EE]" : "text-gray-500 hover:text-gray-900 dark:hover:text-white"
-              }`}
-            >
-              <BookOpen className="w-4 h-4 mr-2" /> Assign Assignment
-              {activeTab === "assignment" && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-[#7B68EE] rounded-t-full" />}
-            </button>
-            <button
-              onClick={() => setActiveTab("assessment")}
-              className={`flex items-center pb-3 px-4 font-medium text-sm transition-colors relative ${
-                activeTab === "assessment" ? "text-[#7B68EE]" : "text-gray-500 hover:text-gray-900 dark:hover:text-white"
-              }`}
-            >
-              <FileText className="w-4 h-4 mr-2" /> Create Assessment
-              {activeTab === "assessment" && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-[#7B68EE] rounded-t-full" />}
-            </button>
-            <button
-              onClick={() => setActiveTab("students")}
-              className={`flex items-center pb-3 px-4 font-medium text-sm transition-colors relative ${
-                activeTab === "students" ? "text-[#7B68EE]" : "text-gray-500 hover:text-gray-900 dark:hover:text-white"
-              }`}
-            >
-              <Users className="w-4 h-4 mr-2" /> Students & Attendance
-              {activeTab === "students" && <div className="absolute bottom-0 left-0 w-full h-0.5 bg-[#7B68EE] rounded-t-full" />}
-            </button>
-          </div>
-
+        <div>
           {message && (
             <div className={`p-4 mb-6 rounded-lg flex items-center space-x-3 text-sm font-medium ${
               message.type === 'success' 
@@ -190,6 +181,89 @@ export function BatchManager() {
             }`}>
               {message.type === 'success' && <CheckCircle2 className="w-5 h-5 text-green-500" />}
               <span>{message.text}</span>
+            </div>
+          )}
+
+          {/* Overview Tab */}
+          {activeTab === "overview" && (
+            <div className="space-y-6">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">
+                Batch {selectedBatch} Overview
+              </h3>
+              
+              {fetchingOverview ? (
+                <div className="flex justify-center p-8">
+                  <Loader2 className="w-8 h-8 animate-spin text-[#7B68EE]" />
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {/* Upcoming Classes */}
+                  <div className="bg-white dark:bg-gray-950 p-5 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
+                    <div className="flex items-center space-x-2 mb-4 text-sm font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                      <Presentation className="w-4 h-4 text-[#7B68EE]" />
+                      <span>Upcoming Classes</span>
+                    </div>
+                    {overview.classes.length > 0 ? (
+                      <div className="space-y-3">
+                        {overview.classes.map((cls, idx) => (
+                          <div key={idx} className="p-3 bg-gray-50 dark:bg-gray-900/50 rounded-xl text-sm border border-gray-100 dark:border-gray-800">
+                            <p className="font-semibold text-gray-900 dark:text-white">{cls.subject}</p>
+                            <div className="flex items-center text-xs text-gray-500 mt-1.5 space-x-3">
+                              <span className="flex items-center"><CalendarIcon className="w-3.5 h-3.5 mr-1 text-gray-400" /> {new Date(cls.date).toLocaleDateString()}</span>
+                              <span className="flex items-center"><Clock className="w-3.5 h-3.5 mr-1 text-gray-400" /> {cls.time}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-gray-400 text-center py-4">No classes scheduled.</p>
+                    )}
+                  </div>
+
+                  {/* Assignments */}
+                  <div className="bg-white dark:bg-gray-950 p-5 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
+                    <div className="flex items-center space-x-2 mb-4 text-sm font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                      <BookOpen className="w-4 h-4 text-[#E83E8C]" />
+                      <span>Assignments</span>
+                    </div>
+                    {overview.assignments.length > 0 ? (
+                      <div className="space-y-3">
+                        {overview.assignments.map((asm, idx) => (
+                          <div key={idx} className="p-3 bg-[#FFF5F8]/50 dark:bg-pink-950/10 rounded-xl text-sm border border-pink-100 dark:border-pink-900/30">
+                            <p className="font-semibold text-gray-900 dark:text-white">{asm.title}</p>
+                            <p className="text-xs text-pink-600 dark:text-pink-400 mt-1.5 font-medium">Due: {new Date(asm.due_date).toLocaleDateString()}</p>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-gray-400 text-center py-4">No assignments created.</p>
+                    )}
+                  </div>
+
+                  {/* Assessments */}
+                  <div className="bg-white dark:bg-gray-950 p-5 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
+                    <div className="flex items-center space-x-2 mb-4 text-sm font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                      <FileText className="w-4 h-4 text-[#FF6B6B]" />
+                      <span>Assessments</span>
+                    </div>
+                    {overview.assessments.length > 0 ? (
+                      <div className="space-y-3">
+                        {overview.assessments.map((ass, idx) => (
+                          <div key={idx} className="p-3 bg-[#FFF0F0]/50 dark:bg-red-950/10 rounded-xl text-sm border border-red-100 dark:border-red-900/30">
+                            <div className="flex justify-between items-start mb-1.5">
+                              <p className="font-semibold text-gray-900 dark:text-white line-clamp-1 pr-2">{ass.title}</p>
+                              <span className="text-[9px] px-1.5 py-0.5 bg-red-100 text-red-600 rounded uppercase font-bold shrink-0">{ass.type}</span>
+                            </div>
+                            <p className="text-xs text-red-600 dark:text-red-400 mt-1 font-medium">{new Date(ass.date).toLocaleDateString()} • {ass.duration_mins} mins</p>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-gray-400 text-center py-4">No assessments created.</p>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
@@ -417,89 +491,62 @@ export function BatchManager() {
             </form>
           )}
 
+          {/* Records Form */}
+          {activeTab === "records" && (
+            <div className="space-y-6 max-w-2xl">
+              <form onSubmit={(e) => handleSubmit(e, postStudentRecord)} className="space-y-4 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-gray-100 dark:border-gray-800">
+                <h4 className="font-semibold text-gray-900 dark:text-white">Post a Record or Activity</h4>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Select Student</label>
+                  <select name="enrollment_id" className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                    <option value="all">All Students in Batch {selectedBatch}</option>
+                    {students.map(s => (
+                      <option key={s.id} value={s.id}>{s.first_name} {s.last_name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Title</label>
+                  <Input name="title" required placeholder="e.g. Activity Feedback" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Message</label>
+                  <textarea name="message" required placeholder="Details..." className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"></textarea>
+                </div>
+                <Button type="submit" disabled={loading} className="bg-[#7B68EE] hover:bg-[#6A5AE0] text-white">
+                  {loading ? "Posting..." : "Post Record"}
+                </Button>
+              </form>
+
+              <div className="space-y-4">
+                <h4 className="font-semibold text-gray-900 dark:text-white">Recent Records</h4>
+                {fetchingRecords ? (
+                  <div className="flex items-center justify-center p-4"><Loader2 className="w-5 h-5 animate-spin" /></div>
+                ) : records.length === 0 ? (
+                  <p className="text-sm text-gray-500">No records found for this batch.</p>
+                ) : (
+                  records.map((record) => (
+                    <div key={record.id} className="p-4 bg-white dark:bg-gray-950 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h5 className="font-bold text-gray-900 dark:text-white">{record.title}</h5>
+                          <p className="text-xs text-gray-500">To: {record.course_enrollments?.first_name} {record.course_enrollments?.last_name}</p>
+                        </div>
+                        <span className={`text-[10px] uppercase font-bold px-2 py-1 rounded ${record.sender_type === 'staff' ? 'bg-[#E6F4FF] text-[#0066FF]' : 'bg-green-100 text-green-700'}`}>
+                          {record.sender_type}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{record.message}</p>
+                      <p className="text-xs text-gray-400 mt-3">{new Date(record.created_at).toLocaleString()}</p>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          )}
+
         </div>
       </div>
-
-      {/* Right Column: Overview */}
-      <div className="md:col-span-1 border-l border-gray-100 dark:border-gray-800 md:pl-8 space-y-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4">
-          Batch {selectedBatch} Content Overview
-        </h3>
-        
-        {fetchingOverview ? (
-          <div className="flex justify-center p-4">
-            <Loader2 className="w-5 h-5 animate-spin text-gray-400" />
-          </div>
-        ) : (
-          <div className="space-y-6">
-            
-            {/* Upcoming Classes */}
-            <div>
-              <div className="flex items-center space-x-2 mb-3 text-sm font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
-                <Presentation className="w-4 h-4 text-[#7B68EE]" />
-                <span>Upcoming Classes</span>
-              </div>
-              {overview.classes.length > 0 ? (
-                <div className="space-y-2">
-                  {overview.classes.map((cls, idx) => (
-                    <div key={idx} className="p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg text-sm border border-gray-100 dark:border-gray-800">
-                      <p className="font-semibold text-gray-900 dark:text-white">{cls.subject}</p>
-                      <div className="flex items-center text-xs text-gray-500 mt-1 space-x-2">
-                        <span className="flex items-center"><CalendarIcon className="w-3 h-3 mr-1" /> {new Date(cls.date).toLocaleDateString()}</span>
-                        <span className="flex items-center"><Clock className="w-3 h-3 mr-1" /> {cls.time}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-xs text-gray-400">No classes scheduled.</p>
-              )}
-            </div>
-
-            {/* Assignments */}
-            <div>
-              <div className="flex items-center space-x-2 mb-3 text-sm font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
-                <BookOpen className="w-4 h-4 text-[#E83E8C]" />
-                <span>Assignments</span>
-              </div>
-              {overview.assignments.length > 0 ? (
-                <div className="space-y-2">
-                  {overview.assignments.map((asm, idx) => (
-                    <div key={idx} className="p-3 bg-[#FFF5F8]/50 dark:bg-pink-950/10 rounded-lg text-sm border border-pink-100 dark:border-pink-900/30">
-                      <p className="font-semibold text-gray-900 dark:text-white">{asm.title}</p>
-                      <p className="text-xs text-gray-500 mt-1">Due: {new Date(asm.due_date).toLocaleDateString()}</p>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-xs text-gray-400">No assignments created.</p>
-              )}
-            </div>
-
-            {/* Assessments */}
-            <div>
-              <div className="flex items-center space-x-2 mb-3 text-sm font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
-                <FileText className="w-4 h-4 text-[#FF6B6B]" />
-                <span>Assessments</span>
-              </div>
-              {overview.assessments.length > 0 ? (
-                <div className="space-y-2">
-                  {overview.assessments.map((ass, idx) => (
-                    <div key={idx} className="p-3 bg-[#FFF0F0]/50 dark:bg-red-950/10 rounded-lg text-sm border border-red-100 dark:border-red-900/30">
-                      <p className="font-semibold text-gray-900 dark:text-white">{ass.title} <span className="ml-2 text-[9px] px-1.5 py-0.5 bg-red-100 text-red-600 rounded uppercase">{ass.type}</span></p>
-                      <p className="text-xs text-gray-500 mt-1">{new Date(ass.date).toLocaleDateString()} • {ass.duration_mins} mins</p>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-xs text-gray-400">No assessments created.</p>
-              )}
-            </div>
-
-          </div>
-        )}
-      </div>
-
     </div>
   );
 }
