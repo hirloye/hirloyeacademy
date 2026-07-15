@@ -7,7 +7,8 @@ export async function generateMetadata({ params }: { params: Params }) {
   const { slug } = await params;
   return {
     title: "Blog Post | Hirloye Careers",
-    description: "Read our latest blog post.",
+    description: "Read our latest blog post on digital marketing trends, career advice, and industry updates. Stay informed and ahead of the curve with Hirloye academy insights.",
+    keywords: "digital marketing blog, marketing trends, career advice",
     alternates: {
       canonical: `/blog/${slug}`,
       languages: {

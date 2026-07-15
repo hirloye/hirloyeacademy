@@ -2,6 +2,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
+  title: "Hirloye | Digital Marketing Academy in Ayanavaram",
+  description: "Join the top digital marketing academy in Ayanavaram. Build your career with our AI-powered digital marketing course and learn industry-focused skills at Hirloye.",
+  keywords: "digital marketing academy, AI marketing course, digital marketing training",
   alternates: {
     canonical: "/",
     languages: {

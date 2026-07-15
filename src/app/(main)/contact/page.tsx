@@ -7,7 +7,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact Us | Hirloye",
-  description: "Get in touch with Hirloye.",
+  description: "Get in touch with Hirloye, the premier digital marketing academy in Ayanavaram. Contact us today to learn more about our courses, services, and career options.",
+  keywords: "contact Hirloye, digital marketing academy, Ayanavaram marketing institute",
   alternates: {
     canonical: "/contact",
     languages: {

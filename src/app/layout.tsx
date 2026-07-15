@@ -22,7 +22,7 @@ const polySansFont = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://hirloyeacademy.com"),
   title: "Hirloye | Digital Marketing Academy in Ayanavaram",
-  description: "Join the top digital marketing academy in Ayanavaram. Build your career with our AI-powered digital marketing course and advanced training programs. Learn industry-focused skills and grow with Hirloye.",
+  description: "Join the top digital marketing academy in Ayanavaram. Build your career with our AI-powered digital marketing course and learn industry-focused skills at Hirloye.",
   keywords: "AI-powered digital marketing course in Ayanavaram, digital marketing academy in Ayanavaram, Advanced digital marketing course in Ayanavaram",
   robots: {
     index: true,

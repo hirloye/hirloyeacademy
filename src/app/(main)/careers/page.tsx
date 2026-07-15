@@ -7,7 +7,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Careers | Hirloye",
-  description: "Explore career opportunities at Hirloye.",
+  description: "Explore exciting career opportunities at Hirloye. Join our innovative digital marketing team in Ayanavaram and help shape the future of AI-powered marketing.",
+  keywords: "digital marketing careers, marketing jobs Ayanavaram, work at Hirloye",
   alternates: {
     canonical: "/careers",
     languages: {

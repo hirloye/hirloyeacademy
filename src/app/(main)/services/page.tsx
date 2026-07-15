@@ -5,7 +5,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Services | Hirloye",
-  description: "Explore the digital marketing services offered by Hirloye.",
+  description: "Discover top-tier digital marketing services at Hirloye. We offer website development, SEO, social media marketing, and ad campaigns tailored to grow your brand.",
+  keywords: "digital marketing services, SEO services, social media marketing",
   alternates: {
     canonical: "/services",
     languages: {

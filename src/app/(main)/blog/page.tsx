@@ -4,7 +4,8 @@ import Image from "next/image";
 
 export const metadata = {
   title: "Blog | Hirloye Careers",
-  description: "Read the latest updates and articles from our team.",
+  description: "Read the latest digital marketing updates, insights, and expert tips from the Hirloye academy team. Stay ahead in your career with our industry-focused articles.",
+  keywords: "digital marketing blog, marketing insights, Hirloye updates",
   alternates: {
     canonical: "/blog",
     languages: {

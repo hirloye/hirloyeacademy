@@ -8,8 +8,8 @@ import LiquidGlassButton from "@/components/ui/liquid-glass-button";
 
 export const metadata: Metadata = {
   title: "AI-Powered Digital Marketing Course in Ayanavaram | Hirloye",
-  description: "Looking for an advanced digital marketing course in Ayanavaram? Join Hirloye, the premier digital marketing academy in Ayanavaram, offering AI-powered training and live projects.",
-  keywords: "AI-powered digital marketing course in Ayanavaram, digital marketing academy in Ayanavaram, Advanced digital marketing course in Ayanavaram",
+  description: "Enroll in our advanced AI-powered digital marketing course in Ayanavaram. Get hands-on training, live projects, and guaranteed placement assistance with Hirloye.",
+  keywords: "AI digital marketing, advanced marketing course, digital marketing Ayanavaram",
   alternates: {
     canonical: "/ai-powered-digital-marketing-course-in-ayanavaram",
     languages: {

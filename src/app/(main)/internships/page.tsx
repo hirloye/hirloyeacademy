@@ -7,7 +7,8 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Internships | Hirloye",
-  description: "Explore internship opportunities at Hirloye.",
+  description: "Kickstart your career with a digital marketing internship at Hirloye. Gain real-world experience, work on live projects, and learn from industry professionals.",
+  keywords: "digital marketing internship, marketing internship Ayanavaram, Hirloye internship",
   alternates: {
     canonical: "/internships",
     languages: {
